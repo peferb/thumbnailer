@@ -267,11 +267,4 @@ func readRawImage(file string) (image.Image, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	img, _, err := image.Decode(bytes.NewReader(data))
-	if err != nil {
-		return nil, err
-	}
-
-	return img, nil
 }
