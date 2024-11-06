@@ -22,12 +22,18 @@ parallel processing to speed up the thumbnail creation process.
 - `exiftool` (for handling Canon CR3 image files)
 - Supported image formats: JPEG, PNG, GIF, BMP, CR3 (with conversion to JPEG)
 
-## Supported input image formats
+### Supported input image formats
 - JPEG
 - PNG
 - GIF
 - BMP
 - CR3 (Canon RAW, with conversion to JPEG using `exiftool`)
+
+### Supported output image formats
+- JPEG
+- PNG
+- GIF
+- BMP
 
 ## Installation
 
