@@ -207,10 +207,12 @@ func processImage(file string) (time.Duration, error) {
 	if strings.HasSuffix(file, ".cr3") {
 		// Convert CR3 to JPEG using exiftool
 		jpegFile := strings.TrimSuffix(file, ".cr3") + ".jpg"
-		cmd := exec.Command("exiftool", "-b", "-JpgFromRaw", "-w", ".jpg", file)
+		cmd := exec.Command("exiftool", "-b", "-JpgFromRaw", "-w", "jpg", file)
+		var stderr bytes.Buffer
+		cmd.Stderr = &stderr
 		err := cmd.Run()
 		if err != nil {
-			return 0, fmt.Errorf("error converting CR3 to JPEG: %v", err)
+			return 0, fmt.Errorf("error converting CR3 to JPEG: %v, %s", err, stderr.String())
 		}
 		file = jpegFile
 	}
