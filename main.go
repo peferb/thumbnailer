@@ -13,6 +13,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"strings"
@@ -203,23 +204,26 @@ func processImage(file string) (time.Duration, error) {
 	var img image.Image
 	var err error
 
-	if strings.HasSuffix(file, ".raw") || strings.HasSuffix(file, ".cr2") {
-		img, err = readRawImage(file)
-	} else {
-		imgFile, err := os.Open(file)
+	if strings.HasSuffix(file, ".cr3") {
+		// Convert CR3 to JPEG using exiftool
+		jpegFile := strings.TrimSuffix(file, ".cr3") + ".jpg"
+		cmd := exec.Command("exiftool", "-b", "-JpgFromRaw", "-w", ".jpg", file)
+		err := cmd.Run()
 		if err != nil {
-			return 0, fmt.Errorf("error opening image file %s: %v", file, err)
+			return 0, fmt.Errorf("error converting CR3 to JPEG: %v", err)
 		}
-		defer imgFile.Close()
-
-		img, _, err = image.Decode(imgFile)
-		if err != nil {
-			return 0, fmt.Errorf("error decoding image file %s: %v", file, err)
-		}
+		file = jpegFile
 	}
 
+	imgFile, err := os.Open(file)
 	if err != nil {
-		return 0, fmt.Errorf("error reading image file %s: %v", file, err)
+		return 0, fmt.Errorf("error opening image file %s: %v", file, err)
+	}
+	defer imgFile.Close()
+
+	img, _, err = image.Decode(imgFile)
+	if err != nil {
+		return 0, fmt.Errorf("error decoding image file %s: %v", file, err)
 	}
 
 	if maxWidth > 0 && maxHeight > 0 {
