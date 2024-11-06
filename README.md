@@ -34,14 +34,14 @@ Run the thumbnailer command with the required flags:
 ```
 
 ### Flags
-`-i, --input`: (required): Path to the input images.
-`-o, --output`: (required): Path to save the output thumbnails.
-`-c, --compression`: Compression level (1-100) for JPEG output (default: 75).
-`-w, --width`: Maximum width of the output thumbnails.
-`-H, --height`: Maximum height of the output thumbnails.
-`-f, --format`: Output image format (jpeg, png) (default: jpeg).
-`-C, --config`: Path to the configuration file.
-`-p, --parallelism`: Number of parallel image processing tasks (default: number of CPU cores).
+- `-i, --input`: (required): Path to the input images.
+- `-o, --output`: (required): Path to save the output thumbnails.
+- `-c, --compression`: Compression level (1-100) for JPEG output (default: 75).
+- `-w, --width`: Maximum width of the output thumbnails.
+- `-H, --height`: Maximum height of the output thumbnails.
+- `-f, --format`: Output image format (jpeg, png) (default: jpeg).
+- `-C, --config`: Path to the configuration file.
+- `-p, --parallelism`: Number of parallel image processing tasks (default: number of CPU cores).
 
 ### Configuration File
 You can also use a JSON configuration file to specify the options. Example config.json:
