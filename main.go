@@ -203,6 +203,7 @@ func processImage(file string) (time.Duration, error) {
 
 	var img image.Image
 	var err error
+	var fileIsTempFile bool
 
 	if strings.HasSuffix(file, ".cr3") {
 		// Convert CR3 to JPEG using exiftool
@@ -215,6 +216,7 @@ func processImage(file string) (time.Duration, error) {
 			return 0, fmt.Errorf("error converting CR3 to JPEG: %v, %s", err, stderr.String())
 		}
 		file = jpegFile
+		fileIsTempFile = true
 	}
 
 	imgFile, err := os.Open(file)
@@ -254,6 +256,10 @@ func processImage(file string) (time.Duration, error) {
 		return 0, fmt.Errorf("error saving image %s: %v", outputFile, err)
 	}
 
+	if fileIsTempFile {
+		removeTempFile(file)
+	}
+
 	endTime := time.Now()
 	duration := endTime.Sub(startTime)
 	log.Printf("Finished processing image %s in %v", file, duration)
@@ -261,10 +267,8 @@ func processImage(file string) (time.Duration, error) {
 	return duration, nil
 }
 
-// Add this function to read RAW and Canon images
-func readRawImage(file string) (image.Image, error) {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
+func removeTempFile(file string) {
+	if err := os.Remove(file); err != nil {
+		log.Printf("Error removing file %s: %v", file, err)
 	}
 }
