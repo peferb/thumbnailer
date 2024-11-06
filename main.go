@@ -32,7 +32,7 @@ var (
 	parallelism  int
 )
 
-const maxRetries = 3
+const maxRetries = 1
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
