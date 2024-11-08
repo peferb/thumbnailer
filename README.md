@@ -10,7 +10,7 @@ specification to start with and told it to ask me questions to make sure the res
 It became a never ending guide, the steps of improvement never stopped. I think we started going in circles, just 
 removing and adding about the same functionality back and forth until I managed to snap out of the loop.
 
-I have taken the app for a test spin using three big jpeg files and it seems to work as expected.  
+I have taken the app for a test spin using three big jpeg files and a cr3, it seems to work as expected 👍🏻  
 
 ## Description
 Thumbnailer is a command-line tool for creating thumbnails of images. It supports various image formats and allows for
